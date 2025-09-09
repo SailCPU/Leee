@@ -364,6 +364,6 @@
  * - 避免不必要的字符串拷贝
  * - 使用移动语义优化大字符串操作
  *
- * @author Leee开发团队
+ * @author Sail <sailcpu@gmail.com>
  * @date 2024
  */

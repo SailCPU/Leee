@@ -473,6 +473,6 @@
  * LOG_INFO << "日志系统已启用: " << (leee::Logger::isEnabled() ? "是" : "否");
  * @endcode
  *
- * @author Leee开发团队
+ * @author Sail <sailcpu@gmail.com>
  * @date 2024
  */
