@@ -16,6 +16,7 @@
 | 技术库 | 版本 | 能力价值 | 功能模块映射 |
 |--------|------|----------|--------------|
 | [Eigen](eigen/) | 3.4.0 | 高性能矩阵运算，运动学计算基础 | 运动学计算、动力学建模、轨迹规划 |
+| [pinocchio](pinocchio/) | 3.0.0 | 刚体动力学算法，运动学和动力学计算 | 多体系统建模、正逆运动学、动力学分析、碰撞检测 |
 
 ### 📡 通信集成能力支撑
 
@@ -47,7 +48,7 @@
 
 ```cmake
 # 运动控制模块 - 集成数学计算库
-target_link_libraries(motion-control Eigen)
+target_link_libraries(motion-control Eigen pinocchio)
 
 # 人机界面模块 - 集成通信库
 target_link_libraries(human-interface httplib WebSocket++)
@@ -62,6 +63,11 @@ target_link_libraries(system-management nlohmann_json fmt plog)
 // 在运动控制模块中使用Eigen进行运动学计算
 #include <Eigen/Dense>
 using namespace Eigen;
+
+// 在运动控制模块中使用pinocchio进行多体系统建模
+#include <pinocchio/multibody/model.hpp>
+#include <pinocchio/algorithm/kinematics.hpp>
+using namespace pinocchio;
 
 // 在通信模块中使用Asio进行网络通信
 #include <asio.hpp>

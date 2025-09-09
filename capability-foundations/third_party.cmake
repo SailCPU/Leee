@@ -38,6 +38,10 @@ add_header_only_library(plog "${THIRD_PARTY_DIR}/plog")
 # Eigen - Linear Algebra Library
 add_header_only_library(eigen "${THIRD_PARTY_DIR}/eigen")
 
+# pinocchio - Rigid Body Dynamics Library
+add_header_only_library(pinocchio "${THIRD_PARTY_DIR}/pinocchio/include")
+target_link_libraries(pinocchio INTERFACE eigen)
+
 # doctest - Testing Framework
 add_header_only_library(doctest "${THIRD_PARTY_DIR}/doctest")
 
@@ -60,6 +64,7 @@ target_link_libraries(leee_third_party INTERFACE
     fmt
     plog
     eigen
+    pinocchio
     doctest
     httplib
     websocketpp
@@ -75,6 +80,7 @@ set(THIRD_PARTY_INCLUDE_DIRS
     "${THIRD_PARTY_DIR}/fmt"
     "${THIRD_PARTY_DIR}/plog"
     "${THIRD_PARTY_DIR}/eigen"
+    "${THIRD_PARTY_DIR}/pinocchio/include"
     "${THIRD_PARTY_DIR}/doctest"
     "${THIRD_PARTY_DIR}/httplib"
     "${THIRD_PARTY_DIR}/websocketpp"

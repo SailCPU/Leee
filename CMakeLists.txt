@@ -26,6 +26,9 @@ option(BUILD_TESTING "Build test executables" ON)
 option(BUILD_EXAMPLES "Build example executables" ON)
 option(BUILD_DOCUMENTATION "Build documentation" OFF)
 
+# Include capability foundations third party libraries - 能力基础第三方库集成
+include(${CMAKE_SOURCE_DIR}/capability-foundations/third_party.cmake)
+
 # Include directories for the entire project - 功能导向的模块组织
 include_directories(
     ${CMAKE_SOURCE_DIR}/capability-foundations
@@ -35,6 +38,7 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/human-interface
     ${CMAKE_SOURCE_DIR}/system-management
     ${CMAKE_SOURCE_DIR}/industrial-integration
+    ${THIRD_PARTY_INCLUDE_DIRS}
 )
 
 # Compiler flags
