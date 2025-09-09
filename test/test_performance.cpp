@@ -1,5 +1,5 @@
 //
-/ Leee Performance Tests
+// Leee Performance Tests
 // 性能测试套件，用于评估各个模块的性能表现
 //
 
@@ -17,8 +17,8 @@
 // 性能测试辅助类
 class PerformanceTimer {
 private:
-    std::chrono::high_resolution_clock::time_point start_time_;
     std::string test_name_;
+    std::chrono::high_resolution_clock::time_point start_time_;
 
 public:
     explicit PerformanceTimer(const std::string& test_name)

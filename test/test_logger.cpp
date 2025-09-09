@@ -1,5 +1,5 @@
 //
-/ Leee Logger Unit Tests
+// Leee Logger Unit Tests
 // 使用 doctest 框架进行单元测试
 //
 

@@ -1,5 +1,5 @@
 //
-/ Leee Test Report Generator
+// Leee Test Report Generator
 // 生成详细的测试报告和覆盖率分析
 //
 
@@ -37,9 +37,9 @@ struct TestSuiteResult {
 
 class TestReportGenerator {
 private:
-    std::vector<TestSuiteResult> suite_results_;
-    std::chrono::system_clock::time_point test_start_time_;
     std::string report_file_;
+    std::chrono::system_clock::time_point test_start_time_;
+    std::vector<TestSuiteResult> suite_results_;
 
     // 收集测试结果的辅助函数
     void collectTestResults() {
@@ -353,7 +353,7 @@ TEST_CASE("Report Generator - Demo Tests") {
         auto end = std::chrono::high_resolution_clock::now();
         double duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
 
-        TEST_REPORT_RESULT("Demo Tests", "Successful test", true, duration);
+        TEST_REPORT_RESULT("Demo Tests", "Successful test", true, duration, "");
     }
 
     SUBCASE("Failing test") {
@@ -382,7 +382,7 @@ TEST_CASE("Report Generator - Demo Tests") {
         auto end = std::chrono::high_resolution_clock::now();
         double duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
 
-        TEST_REPORT_RESULT("Demo Tests", "Exception test", true, duration);
+        TEST_REPORT_RESULT("Demo Tests", "Exception test", true, duration, "");
     }
 
     // 生成报告
@@ -478,7 +478,7 @@ TEST_CASE("Coverage Analysis - Module Usage") {
         leee::ByteArray joined = leee::ByteArray::join(parts, "-");
         CHECK(joined.str() == "test-string");
 
-        TEST_REPORT_RESULT("Coverage Analysis", "ByteArray module coverage", true, 0.0);
+        TEST_REPORT_RESULT("Coverage Analysis", "ByteArray module coverage", true, 0.0, "");
     }
 
     SUBCASE("Logger module coverage") {
@@ -503,7 +503,7 @@ TEST_CASE("Coverage Analysis - Module Usage") {
         // 初始化状态检查
         CHECK(leee::is_initialized());
 
-        TEST_REPORT_RESULT("Coverage Analysis", "Logger module coverage", true, 0.0);
+        TEST_REPORT_RESULT("Coverage Analysis", "Logger module coverage", true, 0.0, "");
 
         // 清理
         std::filesystem::remove("coverage_test.log");
