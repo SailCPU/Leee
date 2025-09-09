@@ -1,0 +1,25 @@
+@PACKAGE_INIT@
+
+set(Leee_VERSION "@PROJECT_VERSION@")
+
+# Leee include directories
+set_and_check(Leee_INCLUDE_DIRS "@PACKAGE_INCLUDE_INSTALL_DIR@")
+
+# Leee libraries (header-only, so no libraries to link)
+set(Leee_LIBRARIES "")
+
+# Provide legacy variables
+set(Leee_FOUND TRUE)
+
+# Create imported target for header-only usage
+if(NOT TARGET Leee::Leee)
+    add_library(Leee::Leee INTERFACE IMPORTED)
+    set_target_properties(Leee::Leee PROPERTIES
+        INTERFACE_INCLUDE_DIRECTORIES "${Leee_INCLUDE_DIRS}"
+    )
+endif()
+
+# Display find_package result
+if(NOT Leee_FIND_QUIETLY)
+    message(STATUS "Found Leee: ${Leee_VERSION}")
+endif()
