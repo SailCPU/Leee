@@ -12,15 +12,30 @@ include_directories(
     ${CMAKE_SOURCE_DIR}/../header-only
 )
 
-# ByteArray unit test executable
+# Test executables
 add_executable(test_bytearray test_bytearray.cpp)
+add_executable(test_logger test_logger.cpp)
+add_executable(test_performance test_performance.cpp)
+add_executable(test_integration test_integration.cpp)
+add_executable(test_edge_cases test_edge_cases.cpp)
+add_executable(test_report_generator test_report_generator.cpp)
 
-# Compiler flags
+# Compiler flags for all test executables
 if(MSVC)
-    target_compile_options(test_bytearray PRIVATE /W4)
+    set(TEST_COMPILE_FLAGS /W4)
 else()
-    target_compile_options(test_bytearray PRIVATE -Wall -Wextra -pedantic)
+    set(TEST_COMPILE_FLAGS -Wall -Wextra -pedantic)
 endif()
+
+target_compile_options(test_bytearray PRIVATE ${TEST_COMPILE_FLAGS})
+target_compile_options(test_logger PRIVATE ${TEST_COMPILE_FLAGS})
+target_compile_options(test_performance PRIVATE ${TEST_COMPILE_FLAGS})
+target_compile_options(test_integration PRIVATE ${TEST_COMPILE_FLAGS})
+target_compile_options(test_edge_cases PRIVATE ${TEST_COMPILE_FLAGS})
+target_compile_options(test_report_generator PRIVATE ${TEST_COMPILE_FLAGS})
+
+# Link doctest for report generator (if needed)
+# target_link_libraries(test_report_generator doctest)
 
 # Create logs directory
 file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/logs)
@@ -28,11 +43,31 @@ file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/logs)
 # Enable testing
 enable_testing()
 
-# Add test
+# Add tests
 add_test(NAME ByteArrayUnitTest COMMAND test_bytearray)
+add_test(NAME LoggerUnitTest COMMAND test_logger)
+add_test(NAME PerformanceTest COMMAND test_performance)
+add_test(NAME IntegrationTest COMMAND test_integration)
+add_test(NAME EdgeCasesTest COMMAND test_edge_cases)
+add_test(NAME ReportGeneratorTest COMMAND test_report_generator)
 
-# Set test properties
-set_tests_properties(ByteArrayUnitTest PROPERTIES
+# Set test properties for all tests
+set_tests_properties(
+    ByteArrayUnitTest
+    LoggerUnitTest
+    PerformanceTest
+    IntegrationTest
+    EdgeCasesTest
+    ReportGeneratorTest
+    PROPERTIES
     WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     ENVIRONMENT "PATH=${CMAKE_BINARY_DIR};$ENV{PATH}"
 )
+
+# Test labels for organization
+set_tests_properties(ByteArrayUnitTest PROPERTIES LABELS "unit")
+set_tests_properties(LoggerUnitTest PROPERTIES LABELS "unit")
+set_tests_properties(PerformanceTest PROPERTIES LABELS "performance")
+set_tests_properties(IntegrationTest PROPERTIES LABELS "integration")
+set_tests_properties(EdgeCasesTest PROPERTIES LABELS "edge_cases")
+set_tests_properties(ReportGeneratorTest PROPERTIES LABELS "reporting")
