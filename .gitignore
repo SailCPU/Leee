@@ -183,3 +183,10 @@ yarn-error.log*
 .cache/
 __pycache__/
 *.pyc
+
+# Doxygen generated documentation
+docs/
+*.dox
+
+# Executable files
+test_bytearray

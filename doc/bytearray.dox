@@ -1,0 +1,369 @@
+/**
+ * @page bytearray_page ByteArray字符串工具模块
+ *
+ * @tableofcontents
+ *
+ * @section bytearray_overview 概述
+ *
+ * ByteArray是Leee库的核心组件之一，提供增强的字符串处理功能。
+ * 该类继承自std::string，完全兼容标准库的所有操作，同时提供Qt QByteArray风格的便捷API。
+ *
+ * @section bytearray_features 特性
+ *
+ * - **完全兼容**: 继承自std::string，支持所有标准库操作
+ * - **Qt风格API**: 提供isEmpty()、constData()等Qt风格方法
+ * - **丰富的操作**: 字符串分割、连接、查找、替换、大小写转换等
+ * - **类型转换**: 安全的数字与字符串转换，支持多种进制
+ * - **文件操作**: 读写文件功能
+ * - **编码转换**: 十六进制编码解码
+ * - **路径处理**: 文件路径解析功能
+ *
+ * @section bytearray_usage 基本使用
+ *
+ * @subsection bytearray_construction 构造
+ *
+ * @code{.cpp}
+ * // 默认构造
+ * leee::ByteArray str1;
+ *
+ * // 从std::string构造
+ * leee::ByteArray str2("Hello World");
+ *
+ * // 从C字符串构造
+ * leee::ByteArray str3 = "C++ String";
+ *
+ * // 拷贝构造
+ * leee::ByteArray str4 = str2;
+ * @endcode
+ *
+ * @subsection bytearray_basic_ops 基本操作
+ *
+ * @code{.cpp}
+ * leee::ByteArray str("Hello World");
+ *
+ * // 检查是否为空
+ * if (str.isEmpty()) {
+ *     std::cout << "字符串为空" << std::endl;
+ * }
+ *
+ * // 获取长度
+ * size_t len = str.size();
+ *
+ * // 获取C风格字符串
+ * const char* cstr = str.constData();
+ *
+ * // 清空字符串
+ * str.clear();
+ * @endcode
+ *
+ * @subsection bytearray_substring 子字符串操作
+ *
+ * @code{.cpp}
+ * leee::ByteArray str("Hello World Example");
+ *
+ * // 获取左边5个字符
+ * leee::ByteArray left = str.left(5);  // "Hello"
+ *
+ * // 获取右边5个字符
+ * leee::ByteArray right = str.right(5);  // "ample"
+ *
+ * // 获取中间子串
+ * leee::ByteArray mid = str.mid(6, 5);  // "World"
+ * @endcode
+ *
+ * @subsection bytearray_search 查找操作
+ *
+ * @code{.cpp}
+ * leee::ByteArray str("Hello World Hello");
+ *
+ * // 查找字符
+ * size_t pos1 = str.indexOf('W');  // 6
+ * size_t pos2 = str.lastIndexOf('l');  // 15
+ *
+ * // 查找字符串
+ * size_t pos3 = str.indexOf("World");  // 6
+ *
+ * // 检查包含关系
+ * bool contains = str.contains("World");  // true
+ * bool starts = str.startsWith("Hello");  // true
+ * bool ends = str.endsWith("Hello");  // true
+ * @endcode
+ *
+ * @subsection bytearray_modify 修改操作
+ *
+ * @code{.cpp}
+ * leee::ByteArray str("hello world");
+ *
+ * // 大小写转换
+ * str.toUpper();  // "HELLO WORLD"
+ * str.toLower();  // "hello world"
+ *
+ * // 追加内容
+ * str.append(" example");  // "hello world example"
+ *
+ * // 插入内容
+ * str.insert(6, "beautiful ");  // "hello beautiful world example"
+ *
+ * // 替换内容
+ * str.replace("world", "universe");  // "hello beautiful universe example"
+ *
+ * // 删除内容
+ * str.remove(6, 10);  // "hello universe example"
+ *
+ * // 移除空白字符
+ * str.trim();  // "hellouniverseexample"
+ * @endcode
+ *
+ * @subsection bytearray_split_join 分割和连接
+ *
+ * @code{.cpp}
+ * leee::ByteArray str("apple,banana,orange,grape");
+ *
+ * // 分割字符串
+ * auto fruits = str.split(',');  // ["apple", "banana", "orange", "grape"]
+ *
+ * // 连接字符串
+ * leee::ByteArray joined = leee::ByteArray::join(fruits, " | ");
+ * // "apple | banana | orange | grape"
+ * @endcode
+ *
+ * @subsection bytearray_conversion 类型转换
+ *
+ * @code{.cpp}
+ * // 字符串转数字
+ * leee::ByteArray numStr("123.45");
+ * int intVal = numStr.toInt();  // 123
+ * double doubleVal = numStr.toDouble();  // 123.45
+ *
+ * // 数字转字符串
+ * int number = 255;
+ * leee::ByteArray hexStr = leee::ByteArray::number(number, 16);  // "ff"
+ * leee::ByteArray binStr = leee::ByteArray::number(number, 2);   // "11111111"
+ *
+ * // 浮点数转字符串
+ * double pi = 3.14159;
+ * leee::ByteArray piStr = leee::ByteArray::number(pi, 'f', 2);  // "3.14"
+ * @endcode
+ *
+ * @subsection bytearray_file 文件操作
+ *
+ * @code{.cpp}
+ * // 读取文件
+ * leee::ByteArray content = leee::ByteArray::loadFromFile("data.txt");
+ * if (!content.isEmpty()) {
+ *     std::cout << "文件内容：" << content.constData() << std::endl;
+ * }
+ *
+ * // 写入文件
+ * leee::ByteArray data("这是要保存的内容");
+ * bool success = data.saveToFile("output.txt");
+ *
+ * // 追加到文件
+ * leee::ByteArray log("新的日志条目\n");
+ * log.appendToFile("log.txt");
+ * @endcode
+ *
+ * @subsection bytearray_encoding 编码转换
+ *
+ * @code{.cpp}
+ * leee::ByteArray data("Hello");
+ *
+ * // 转换为十六进制
+ * leee::ByteArray hex = data.toHexString();  // "48656c6c6f"
+ *
+ * // 从十六进制转换回来
+ * leee::ByteArray original = leee::ByteArray::fromHexString(hex);  // "Hello"
+ * @endcode
+ *
+ * @subsection bytearray_path 路径操作
+ *
+ * @code{.cpp}
+ * leee::ByteArray path("/home/user/documents/file.txt");
+ *
+ * // 提取各部分
+ * leee::ByteArray filename = path.getFileName();        // "file.txt"
+ * leee::ByteArray directory = path.getDirectory();      // "/home/user/documents/"
+ * leee::ByteArray extension = path.getFileExtension();  // "txt"
+ *
+ * // 静态方法
+ * leee::ByteArray name = leee::ByteArray::getFileName("/path/to/file.cpp");  // "file.cpp"
+ * @endcode
+ *
+ * @subsection bytearray_chain 链式调用
+ *
+ * @code{.cpp}
+ * leee::ByteArray result = leee::ByteArray("  hello world  ")
+ *     .trim()           // 移除空白字符
+ *     .toUpper()        // 转换为大写
+ *     .replace("WORLD", "UNIVERSE")  // 替换内容
+ *     .append("!")      // 追加字符
+ *     .prepend("Hi: "); // 前置内容
+ *
+ * // 结果："Hi: HELLO UNIVERSE!"
+ * @endcode
+ *
+ * @section bytearray_performance 性能特性
+ *
+ * - **零开销抽象**: 继承自std::string，无额外的运行时开销
+ * - **内联函数**: 大部分方法都是内联的，编译时优化
+ * - **内存效率**: 复用std::string的内存管理机制
+ * - **异常安全**: 遵循std::string的异常保证
+ *
+ * @section bytearray_threading 线程安全
+ *
+ * ByteArray类本身是线程安全的，因为它只是封装了std::string的操作。
+ * 但是，如果多个线程同时访问同一个ByteArray对象，需要额外的同步机制。
+ *
+ * @code{.cpp}
+ * std::mutex mtx;
+ * leee::ByteArray sharedStr;
+ *
+ * void threadFunction() {
+ *     std::lock_guard<std::mutex> lock(mtx);
+ *     sharedStr.append("Thread data");
+ * }
+ * @endcode
+ *
+ * @section bytearray_best_practices 最佳实践
+ *
+ * ### 1. 优先使用成员函数
+ * @code{.cpp}
+ * // 推荐
+ * if (!str.isEmpty()) { ... }
+ *
+ * // 不推荐
+ * if (!str.empty()) { ... }
+ * @endcode
+ *
+ * ### 2. 利用链式调用
+ * @code{.cpp}
+ * // 推荐
+ * result = str.trim().toUpper().replace("OLD", "NEW");
+ *
+ * // 不推荐
+ * str.trim();
+ * str.toUpper();
+ * str.replace("OLD", "NEW");
+ * result = str;
+ * @endcode
+ *
+ * ### 3. 使用合适的数据类型转换
+ * @code{.cpp}
+ * // 推荐：使用ok参数检查转换结果
+ * bool conversionOk;
+ * int value = str.toInt(&conversionOk);
+ * if (conversionOk) {
+ *     // 使用value
+ * }
+ * @endcode
+ *
+ * ### 4. 文件操作错误处理
+ * @code{.cpp}
+ * // 推荐：检查文件操作结果
+ * if (data.saveToFile("output.txt")) {
+ *     std::cout << "保存成功" << std::endl;
+ * } else {
+ *     std::cerr << "保存失败" << std::endl;
+ * }
+ * @endcode
+ *
+ * @section bytearray_examples 完整示例
+ *
+ * @subsection bytearray_example1 文本处理示例
+ *
+ * @code{.cpp}
+ * #include <bytearray.h>
+ * #include <iostream>
+ *
+ * int main() {
+ *     leee::ByteArray text = "   The quick brown fox jumps over the lazy dog   ";
+ *
+ *     // 处理文本
+ *     leee::ByteArray processed = text
+ *         .trim()              // 移除首尾空白
+ *         .toLower()           // 转换为小写
+ *         .replace("fox", "cat"); // 替换单词
+ *
+ *     std::cout << "处理后: " << processed.constData() << std::endl;
+ *
+ *     // 统计单词数
+ *     auto words = processed.split(' ');
+ *     std::cout << "单词数: " << words.size() << std::endl;
+ *
+ *     return 0;
+ * }
+ * @endcode
+ *
+ * @subsection bytearray_example2 配置文件解析示例
+ *
+ * @code{.cpp}
+ * #include <bytearray.h>
+ * #include <vector>
+ *
+ * struct ConfigEntry {
+ *     leee::ByteArray key;
+ *     leee::ByteArray value;
+ * };
+ *
+ * std::vector<ConfigEntry> parseConfig(const leee::ByteArray& content) {
+ *     std::vector<ConfigEntry> entries;
+ *
+ *     // 按行分割
+ *     auto lines = content.split('\n');
+ *
+ *     for (const auto& line : lines) {
+ *         // 跳过空行和注释
+ *         if (line.isEmpty() || line.startsWith("#")) {
+ *             continue;
+ *         }
+ *
+ *         // 查找等号
+ *         size_t equalPos = line.indexOf('=');
+ *         if (equalPos != leee::ByteArray::npos) {
+ *             ConfigEntry entry;
+ *             entry.key = line.left(equalPos).trim();
+ *             entry.value = line.mid(equalPos + 1).trim();
+ *             entries.push_back(entry);
+ *         }
+ *     }
+ *
+ *     return entries;
+ * }
+ *
+ * int main() {
+ *     leee::ByteArray configContent = leee::ByteArray::loadFromFile("config.ini");
+ *     auto config = parseConfig(configContent);
+ *
+ *     for (const auto& entry : config) {
+ *         std::cout << entry.key.constData() << " = " << entry.value.constData() << std::endl;
+ *     }
+ *
+ *     return 0;
+ * }
+ * @endcode
+ *
+ * @section bytearray_api API参考
+ *
+ * 详细的API文档请参考：
+ * - @ref leee::ByteArray
+ *
+ * @section bytearray_troubleshooting 故障排除
+ *
+ * ### 编译错误
+ * - 确保包含正确的头文件：@c #include <bytearray.h>
+ * - 检查命名空间：使用 @c leee::ByteArray
+ * - 确认C++标准：需要C++17或更高版本
+ *
+ * ### 运行时错误
+ * - 检查字符串操作的边界条件
+ * - 使用ok参数验证类型转换结果
+ * - 文件操作时检查文件权限和路径有效性
+ *
+ * ### 性能问题
+ * - 对于大量字符串操作，考虑预分配内存
+ * - 避免不必要的字符串拷贝
+ * - 使用移动语义优化大字符串操作
+ *
+ * @author Leee开发团队
+ * @date 2024
+ */

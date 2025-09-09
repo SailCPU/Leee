@@ -1,0 +1,117 @@
+/**
+ * @mainpage Leee 轻量级C++工具库
+ *
+ * @section intro 简介
+ *
+ * Leee是一个轻量级的C++工具库，提供了丰富的实用功能来简化C++开发。
+ * 该库采用header-only设计，无需编译即可使用，支持现代C++标准。
+ *
+ * @section features 主要特性
+ *
+ * - **字符串工具 (ByteArray)**: 增强的字符串类，提供Qt QByteArray风格的API
+ * - **日志记录 (Logger)**: 基于plog的高性能日志系统，支持多种输出格式
+ * - **跨平台兼容**: 支持Windows、Linux、macOS等主流操作系统
+ * - **无依赖**: 仅依赖标准库和少量第三方库
+ * - **易于集成**: header-only设计，简单include即可使用
+ *
+ * @section modules 模块说明
+ *
+ * ### ByteArray 字符串工具模块
+ * - 继承自std::string，完全兼容标准库
+ * - 提供Qt风格的便捷API
+ * - 支持字符串分割、连接、查找、替换等操作
+ * - 类型安全的数据转换
+ * - 文件操作支持
+ * - JSON处理功能
+ *
+ * ### Logger 日志记录模块
+ * - 基于成熟的plog库
+ * - 支持多种日志级别
+ * - 可配置的输出格式
+ * - 支持文件滚动和控制台输出
+ * - 高性能，多线程安全
+ *
+ * @section quick_start 快速开始
+ *
+ * ### 包含头文件
+ * @code{.cpp}
+ * #include <bytearray.h>  // 字符串工具
+ * #include <logger.h>     // 日志记录
+ * @endcode
+ *
+ * ### 基本使用示例
+ * @code{.cpp}
+ * // 字符串操作
+ * leee::ByteArray str("Hello World");
+ * str.toUpper();  // 转换为大写
+ * auto parts = str.split(' ');  // 分割字符串
+ *
+ * // 日志记录
+ * LOG_INFO << "应用程序启动";
+ * LOG_ERROR << "发生错误：" << errorMessage;
+ * @endcode
+ *
+ * ### 编译选项
+ * - **C++标准**: 需要C++17或更高版本
+ * - **依赖库**: 需要安装fmt、nlohmann_json、plog等
+ * - **编译器**: 支持GCC、Clang、MSVC等主流编译器
+ *
+ * @section install 安装说明
+ *
+ * 1. 下载Leee库的头文件
+ * 2. 将include目录添加到您的项目包含路径中
+ * 3. 包含需要的头文件并开始使用
+ *
+ * 无需额外的编译步骤，库的所有功能都是header-only的。
+ *
+ * @section examples 示例代码
+ *
+ * ### 字符串处理
+ * @snippet examples/bytearray_example.cpp basic_usage
+ *
+ * ### 日志记录
+ * @snippet examples/logger_example.cpp basic_logging
+ *
+ * ### 文件操作
+ * @code{.cpp}
+ * leee::ByteArray content = leee::ByteArray::loadFromFile("data.txt");
+ * content.saveToFile("backup.txt");
+ * @endcode
+ *
+ * @section api API参考
+ *
+ * - @ref leee::ByteArray "ByteArray类"
+ * - @ref leee::Logger "Logger类"
+ * - @ref leee::PerformanceUtil "性能分析工具"
+ *
+ * @section changelog 更新日志
+ *
+ * ### v1.0.0 (2024-01-XX)
+ * - 初始版本发布
+ * - 实现ByteArray字符串工具类
+ * - 实现Logger日志记录模块
+ * - 提供完整的API文档
+ *
+ * @section license 许可证
+ *
+ * 本项目采用MIT许可证，详见LICENSE文件。
+ *
+ * @section contribute 贡献
+ *
+ * 欢迎提交Issue和Pull Request来改进这个项目。
+ * 在提交代码前，请确保：
+ * - 代码符合项目的编码规范
+ * - 所有测试通过
+ * - 更新相关文档
+ *
+ * @section support 支持
+ *
+ * 如果您在使用过程中遇到问题，请：
+ * 1. 查看API文档和示例代码
+ * 2. 在GitHub上提交Issue
+ * 3. 查看现有的Issue和解决方案
+ *
+ * @author Leee开发团队
+ * @version 1.0.0
+ * @date 2024
+ */

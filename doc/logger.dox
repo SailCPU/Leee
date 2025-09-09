@@ -1,0 +1,478 @@
+/**
+ * @page logger_page Logger日志记录模块
+ *
+ * @tableofcontents
+ *
+ * @section logger_overview 概述
+ *
+ * Logger模块是Leee库的重要组成部分，提供高性能、多功能的日志记录功能。
+ * 该模块基于成熟的plog库，采用header-only设计，支持多种输出格式和存储方式。
+ *
+ * @section logger_features 特性
+ *
+ * - **多级别日志**: 支持TRACE、DEBUG、INFO、WARNING、ERROR、FATAL等级别
+ * - **多种输出**: 控制台输出、文件输出、滚动文件输出
+ * - **高性能**: 低延迟、高吞吐量的日志记录
+ * - **线程安全**: 支持多线程环境下的并发日志记录
+ * - **可配置格式**: 支持自定义日志格式
+ * - **自动文件管理**: 支持文件大小限制和自动轮转
+ * - **条件编译**: 支持不同构建配置下的日志级别控制
+ *
+ * @section logger_quick_start 快速开始
+ *
+ * @subsection logger_basic_setup 基本设置
+ *
+ * @code{.cpp}
+ * #include <logger.h>
+ *
+ * int main() {
+ *     // 初始化日志系统（控制台输出）
+ *     leee::Logger::initConsoleLogger(leee::Logger::Level::INFO);
+ *
+ *     // 记录日志
+ *     LOG_INFO << "应用程序启动";
+ *     LOG_DEBUG << "调试信息";
+ *     LOG_WARNING << "警告信息";
+ *     LOG_ERROR << "错误信息";
+ *
+ *     return 0;
+ * }
+ * @endcode
+ *
+ * @subsection logger_file_setup 文件输出设置
+ *
+ * @code{.cpp}
+ * #include <logger.h>
+ *
+ * int main() {
+ *     // 初始化文件日志
+ *     leee::Logger::initFileLogger("app.log", leee::Logger::Level::DEBUG);
+ *
+ *     // 初始化滚动文件日志（文件大小限制）
+ *     leee::Logger::initRollingFileLogger("app.log", 1024*1024, leee::Logger::Level::INFO);
+ *
+ *     LOG_INFO << "日志将写入到文件";
+ *
+ *     return 0;
+ * }
+ * @endcode
+ *
+ * @section logger_levels 日志级别
+ *
+ * Logger模块支持以下日志级别（从低到高）：
+ *
+ * - **TRACE**: 最详细的跟踪信息，用于调试
+ * - **DEBUG**: 调试信息，帮助开发和故障排除
+ * - **INFO**: 一般信息，重要的程序执行信息
+ * - **WARNING**: 警告信息，潜在的问题
+ * - **ERROR**: 错误信息，程序执行中发生的错误
+ * - **FATAL**: 致命错误，可能导致程序崩溃
+ *
+ * @code{.cpp}
+ * // 设置日志级别为DEBUG
+ * leee::Logger::setLevel(leee::Logger::Level::DEBUG);
+ *
+ * // 记录不同级别的日志
+ * LOG_TRACE << "详细的跟踪信息";
+ * LOG_DEBUG << "调试信息";
+ * LOG_INFO << "一般信息";
+ * LOG_WARNING << "警告信息";
+ * LOG_ERROR << "错误信息";
+ * LOG_FATAL << "致命错误";
+ * @endcode
+ *
+ * @section logger_output_types 输出类型
+ *
+ * @subsection logger_console 控制台输出
+ *
+ * 将日志输出到标准输出或标准错误流。
+ *
+ * @code{.cpp}
+ * // 初始化控制台日志
+ * leee::Logger::initConsoleLogger(leee::Logger::Level::INFO);
+ *
+ * // 使用彩色输出（如果支持）
+ * leee::Logger::initColorConsoleLogger(leee::Logger::Level::DEBUG);
+ * @endcode
+ *
+ * @subsection logger_file 文件输出
+ *
+ * 将日志写入到指定文件。
+ *
+ * @code{.cpp}
+ * // 基本文件日志
+ * leee::Logger::initFileLogger("app.log", leee::Logger::Level::INFO);
+ *
+ * // 指定日志文件路径
+ * leee::Logger::initFileLogger("/var/log/myapp.log", leee::Logger::Level::WARNING);
+ * @endcode
+ *
+ * @subsection logger_rolling 滚动文件输出
+ *
+ * 当文件达到指定大小时自动创建新文件。
+ *
+ * @code{.cpp}
+ * // 滚动文件日志（每个文件最大1MB）
+ * leee::Logger::initRollingFileLogger("app.log", 1024*1024, leee::Logger::Level::INFO);
+ *
+ * // 多个备份文件
+ * leee::Logger::initRollingFileLogger("app.log", 1024*1024, 5, leee::Logger::Level::DEBUG);
+ * @endcode
+ *
+ * @subsection logger_multi 多种输出组合
+ *
+ * 可以同时使用多种输出方式。
+ *
+ * @code{.cpp}
+ * // 同时输出到控制台和文件
+ * leee::Logger::initMultiLogger(leee::Logger::Level::INFO);
+ * @endcode
+ *
+ * @section logger_formats 格式化
+ *
+ * @subsection logger_custom_format 自定义格式
+ *
+ * Logger支持自定义日志输出格式。
+ *
+ * @code{.cpp}
+ * // 使用GLOG格式（默认）
+ * leee::Logger::setFormat(leee::Logger::Format::GLOG);
+ *
+ * // 使用简洁格式
+ * leee::Logger::setFormat(leee::Logger::Format::SIMPLE);
+ * @endcode
+ *
+ * @subsection logger_format_patterns 格式模式
+ *
+ * 支持的格式占位符：
+ * - `%datetime`: 日期时间
+ * - `%level`: 日志级别
+ * - `%message`: 日志消息
+ * - `%file`: 源文件名
+ * - `%line`: 行号
+ * - `%function`: 函数名
+ * - `%tid`: 线程ID
+ *
+ * @section logger_advanced 高级功能
+ *
+ * @subsection logger_conditional 条件日志
+ *
+ * @code{.cpp}
+ * // 只有在条件满足时才记录日志
+ * if (someCondition) {
+ *     LOG_DEBUG << "条件满足时的调试信息";
+ * }
+ *
+ * // 使用宏进行条件编译
+ * #ifdef DEBUG_MODE
+ * LOG_TRACE << "只有在调试模式下才会编译的日志";
+ * #endif
+ * @endcode
+ *
+ * @subsection logger_performance 性能日志
+ *
+ * @code{.cpp}
+ * #include <logger.h>
+ * #include <chrono>
+ *
+ * void someFunction() {
+ *     auto start = std::chrono::high_resolution_clock::now();
+ *
+ *     // 执行一些操作
+ *     doSomeWork();
+ *
+ *     auto end = std::chrono::high_resolution_clock::now();
+ *     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+ *
+ *     LOG_INFO << "函数执行时间: " << duration.count() << " ms";
+ * }
+ * @endcode
+ *
+ * @subsection logger_structured 结构化日志
+ *
+ * @code{.cpp}
+ * // 使用流式API记录结构化信息
+ * LOG_INFO << "用户登录 - 用户名: " << username
+ *          << ", IP: " << ipAddress
+ *          << ", 时间: " << timestamp;
+ *
+ * // 记录JSON格式的结构化数据
+ * LOG_INFO << "{\"event\": \"user_login\", \"user\": \"" << username << "\", \"ip\": \"" << ipAddress << "\"}";
+ * @endcode
+ *
+ * @section logger_configuration 配置选项
+ *
+ * @subsection logger_runtime 运行时配置
+ *
+ * @code{.cpp}
+ * // 动态改变日志级别
+ * leee::Logger::setLevel(leee::Logger::Level::WARNING);
+ *
+ * // 启用/禁用日志
+ * leee::Logger::enable();
+ * leee::Logger::disable();
+ *
+ * // 刷新缓冲区
+ * leee::Logger::flush();
+ * @endcode
+ *
+ * @subsection logger_compile_time 编译时配置
+ *
+ * 通过预处理器宏进行编译时配置：
+ *
+ * @code{.cpp}
+ * // 定义日志级别宏
+ * #define LOG_LEVEL DEBUG  // 或者 INFO, WARNING, ERROR
+ *
+ * // 条件编译不同级别的日志
+ * #if LOG_LEVEL <= DEBUG
+ * LOG_DEBUG << "调试信息";
+ * #endif
+ * @endcode
+ *
+ * @section logger_multithreading 多线程支持
+ *
+ * Logger模块是线程安全的，可以在多线程环境中安全使用。
+ *
+ * @code{.cpp}
+ * #include <logger.h>
+ * #include <thread>
+ * #include <vector>
+ *
+ * void worker(int id) {
+ *     LOG_INFO << "工作线程 " << id << " 开始工作";
+ *     // 执行工作
+ *     LOG_INFO << "工作线程 " << id << " 完成工作";
+ * }
+ *
+ * int main() {
+ *     leee::Logger::initConsoleLogger(leee::Logger::Level::INFO);
+ *
+ *     std::vector<std::thread> threads;
+ *     for (int i = 0; i < 5; ++i) {
+ *         threads.emplace_back(worker, i);
+ *     }
+ *
+ *     for (auto& t : threads) {
+ *         t.join();
+ *     }
+ *
+ *     return 0;
+ * }
+ * @endcode
+ *
+ * @section logger_best_practices 最佳实践
+ *
+ * @subsection logger_level_usage 日志级别使用指南
+ *
+ * - **TRACE**: 非常详细的内部执行信息，主要用于开发调试
+ * - **DEBUG**: 对开发人员有用的调试信息
+ * - **INFO**: 重要的业务逻辑执行信息
+ * - **WARNING**: 潜在问题或不寻常的情况
+ * - **ERROR**: 错误情况，但程序可以继续运行
+ * - **FATAL**: 严重错误，可能导致程序终止
+ *
+ * @subsection logger_message_format 消息格式建议
+ *
+ * @code{.cpp}
+ * // 好的格式
+ * LOG_INFO << "用户 " << userId << " 登录成功";
+ * LOG_ERROR << "数据库连接失败: " << errorMessage;
+ *
+ * // 不推荐的格式
+ * LOG_INFO << "Login successful for user " + userId;  // 字符串拼接低效
+ * LOG_DEBUG << someComplexObject;  // 可能输出过多信息
+ * @endcode
+ *
+ * @subsection logger_performance_considerations 性能考虑
+ *
+ * @code{.cpp}
+ * // 推荐：在循环外构建消息
+ * std::string message = "处理项目: " + itemName;
+ * LOG_INFO << message;
+ *
+ * // 不推荐：在循环内进行字符串操作
+ * for (const auto& item : items) {
+ *     LOG_INFO << "处理项目: " + item.name;  // 每次循环都创建字符串
+ * }
+ * @endcode
+ *
+ * @subsection logger_resource_management 资源管理
+ *
+ * @code{.cpp}
+ * // 程序结束时正确关闭日志
+ * int main() {
+ *     leee::Logger::initFileLogger("app.log", leee::Logger::Level::INFO);
+ *
+ *     // 程序逻辑
+ *     LOG_INFO << "应用程序启动";
+ *
+ *     // 程序结束前刷新并关闭
+ *     leee::Logger::flush();
+ *
+ *     return 0;
+ * }
+ * @endcode
+ *
+ * @section logger_examples 完整示例
+ *
+ * @subsection logger_example1 基本日志示例
+ *
+ * @code{.cpp}
+ * #include <logger.h>
+ * #include <iostream>
+ *
+ * int main() {
+ *     // 初始化彩色控制台日志
+ *     leee::Logger::initColorConsoleLogger(leee::Logger::Level::DEBUG);
+ *
+ *     LOG_INFO << "应用程序版本 1.0.0 启动";
+ *
+ *     try {
+ *         // 模拟一些操作
+ *         LOG_DEBUG << "开始初始化组件";
+ *         initializeComponents();
+ *         LOG_DEBUG << "组件初始化完成";
+ *
+ *         LOG_INFO << "系统准备就绪";
+ *
+ *         // 模拟警告情况
+ *         if (someCondition) {
+ *             LOG_WARNING << "检测到配置问题，但可以继续运行";
+ *         }
+ *
+ *         runMainLoop();
+ *
+ *     } catch (const std::exception& e) {
+ *         LOG_ERROR << "发生未处理的异常: " << e.what();
+ *         return 1;
+ *     }
+ *
+ *     LOG_INFO << "应用程序正常退出";
+ *     return 0;
+ * }
+ * @endcode
+ *
+ * @subsection logger_example2 多输出示例
+ *
+ * @code{.cpp}
+ * #include <logger.h>
+ * #include <filesystem>
+ *
+ * void setupLogging() {
+ *     // 创建日志目录
+ *     std::filesystem::create_directories("logs");
+ *
+ *     // 设置主日志文件
+ *     leee::Logger::initRollingFileLogger("logs/app.log", 10*1024*1024, leee::Logger::Level::INFO);
+ *
+ *     // 设置错误日志文件
+ *     leee::Logger::initFileLogger("logs/error.log", leee::Logger::Level::ERROR);
+ *
+ *     // 在开发模式下也输出到控制台
+ *     #ifdef DEBUG
+ *     leee::Logger::initColorConsoleLogger(leee::Logger::Level::DEBUG);
+ *     #endif
+ *
+ *     LOG_INFO << "日志系统初始化完成";
+ * }
+ *
+ * int main() {
+ *     setupLogging();
+ *
+ *     LOG_INFO << "应用程序启动";
+ *     LOG_DEBUG << "调试模式已启用";
+ *
+ *     // 应用程序逻辑
+ *
+ *     return 0;
+ * }
+ * @endcode
+ *
+ * @subsection logger_example3 性能监控示例
+ *
+ * @code{.cpp}
+ * #include <logger.h>
+ * #include <chrono>
+ * #include <vector>
+ *
+ * class PerformanceMonitor {
+ * public:
+ *     void start(const std::string& operation) {
+ *         operations_[operation] = std::chrono::high_resolution_clock::now();
+ *         LOG_DEBUG << "开始操作: " << operation;
+ *     }
+ *
+ *     void end(const std::string& operation) {
+ *         auto it = operations_.find(operation);
+ *         if (it != operations_.end()) {
+ *             auto duration = std::chrono::high_resolution_clock::now() - it->second;
+ *             auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(duration);
+ *             LOG_INFO << "操作完成: " << operation << " 耗时: " << ms.count() << " ms";
+ *             operations_.erase(it);
+ *         }
+ *     }
+ *
+ * private:
+ *     std::unordered_map<std::string, std::chrono::time_point<std::chrono::high_resolution_clock>> operations_;
+ * };
+ *
+ * int main() {
+ *     leee::Logger::initConsoleLogger(leee::Logger::Level::INFO);
+ *     PerformanceMonitor monitor;
+ *
+ *     monitor.start("database_query");
+ *     // 执行数据库查询
+ *     performDatabaseQuery();
+ *     monitor.end("database_query");
+ *
+ *     monitor.start("file_processing");
+ *     // 处理文件
+ *     processFiles();
+ *     monitor.end("file_processing");
+ *
+ *     return 0;
+ * }
+ * @endcode
+ *
+ * @section logger_api API参考
+ *
+ * 详细的API文档请参考：
+ * - @ref leee::Logger
+ *
+ * @section logger_troubleshooting 故障排除
+ *
+ * @subsection logger_common_issues 常见问题
+ *
+ * 1. **日志不输出**
+ *    - 检查日志级别设置
+ *    - 确保输出文件路径可写
+ *    - 验证Logger初始化是否正确
+ *
+ * 2. **性能问题**
+ *    - 在生产环境中使用适当的日志级别
+ *    - 避免在循环中进行复杂的字符串操作
+ *    - 考虑异步日志输出
+ *
+ * 3. **多线程死锁**
+ *    - 确保不在日志回调函数中调用日志函数
+ *    - 避免在持有锁的情况下记录日志
+ *
+ * 4. **文件权限问题**
+ *    - 检查日志文件目录的写权限
+ *    - 确保应用程序有创建文件的权限
+ *
+ * @subsection logger_debug 调试技巧
+ *
+ * @code{.cpp}
+ * // 启用详细日志以调试问题
+ * leee::Logger::setLevel(leee::Logger::Level::TRACE);
+ *
+ * // 检查日志系统状态
+ * LOG_INFO << "当前日志级别: " << static_cast<int>(leee::Logger::getLevel());
+ * LOG_INFO << "日志系统已启用: " << (leee::Logger::isEnabled() ? "是" : "否");
+ * @endcode
+ *
+ * @author Leee开发团队
+ * @date 2024
+ */
