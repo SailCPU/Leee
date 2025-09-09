@@ -3,7 +3,7 @@
 // 演示如何使用 Leee 项目的日志模块
 //
 
-#include <logger.h>
+#include <capability-foundations/leee/logger.h>
 #include <iostream>
 #include <vector>
 #include <string>

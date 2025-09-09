@@ -1,6 +1,10 @@
+#include <capability-foundations/leee/logger.h>
 #include <iostream>
 
 int main() {
-    std::cout << "Logger example" << std::endl;
+    // 初始化日志
+    leee::init_logger();
+
+    LOG_INFO << "Logger example started";
     return 0;
 }

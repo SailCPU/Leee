@@ -7,7 +7,7 @@
 #include "doctest.h"
 
 #include <leee/bytearray.h>
-#include <logger.h>
+#include <capability-foundations/leee/logger.h>
 #include <limits>
 #include <climits>
 #include <cmath>

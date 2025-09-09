@@ -1,4 +1,5 @@
 #include "welding_control.h"
+#include <capability-foundations/leee/logger.h>
 #include <iostream>
 #include <thread>
 #include <chrono>
@@ -25,35 +26,35 @@ bool WeldingController::initialize(const std::string& config_file) {
         // 初始化配置管理器
         config_manager_ = std::make_unique<leee::ConfigManager>();
         if (!config_manager_->loadConfig(config_file)) {
-            std::cerr << "Failed to load configuration file: " << config_file << std::endl;
+            LOG_ERROR << "Failed to load configuration file: " << config_file;
             return false;
         }
 
         // 初始化运动学求解器
         kinematics_solver_ = std::make_unique<leee::KinematicsSolver>();
         if (!kinematics_solver_->initialize()) {
-            std::cerr << "Failed to initialize kinematics solver" << std::endl;
+            LOG_ERROR << "Failed to initialize kinematics solver";
             return false;
         }
 
         // 初始化轨迹规划器
         trajectory_planner_ = std::make_unique<leee::TrajectoryPlanner>();
         if (!trajectory_planner_->initialize()) {
-            std::cerr << "Failed to initialize trajectory planner" << std::endl;
+            LOG_ERROR << "Failed to initialize trajectory planner";
             return false;
         }
 
         // 初始化传感器接口
         sensor_interface_ = std::make_unique<leee::SensorInterface>();
         if (!sensor_interface_->initialize()) {
-            std::cerr << "Failed to initialize sensor interface" << std::endl;
+            LOG_ERROR << "Failed to initialize sensor interface";
             return false;
         }
 
         // 初始化过程监控器
         process_monitor_ = std::make_unique<leee::ProcessMonitor>();
         if (!process_monitor_->initialize()) {
-            std::cerr << "Failed to initialize process monitor" << std::endl;
+            LOG_ERROR << "Failed to initialize process monitor";
             return false;
         }
 
@@ -64,7 +65,7 @@ bool WeldingController::initialize(const std::string& config_file) {
         // 初始化焊接设备接口
         welding_equipment_ = std::make_unique<WeldingEquipmentInterface>();
         if (!welding_equipment_->connect()) {
-            std::cerr << "Failed to connect to welding equipment" << std::endl;
+            LOG_ERROR << "Failed to connect to welding equipment";
             return false;
         }
 
@@ -73,7 +74,7 @@ bool WeldingController::initialize(const std::string& config_file) {
         return true;
 
     } catch (const std::exception& e) {
-        std::cerr << "Exception during initialization: " << e.what() << std::endl;
+        LOG_ERROR << "Exception during initialization: " << e.what();
         return false;
     }
 }

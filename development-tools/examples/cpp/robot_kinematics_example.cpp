@@ -5,6 +5,7 @@
  * 演示如何使用Leee的运动学求解器进行正向和逆向运动学计算
  */
 
+#include <capability-foundations/leee/logger.h>
 #include <iostream>
 #include <iomanip>
 #include <vector>
@@ -14,8 +15,11 @@
 #include "include/kinematics/kinematics_solver.h"
 
 int main() {
-    std::cout << "Leee 机器人运动学示例" << std::endl;
-    std::cout << "====================" << std::endl;
+    // 初始化日志
+    leee::init_logger();
+
+    LOG_INFO << "Leee 机器人运动学示例启动";
+    LOG_INFO << "====================";
 
     // 创建6DOF机械臂的DH参数
     // 这里使用的是简化参数，实际应用中需要根据具体机械臂调整
@@ -24,8 +28,8 @@ int main() {
     // 创建运动学求解器
     leee::SixDOFManipulatorKinematics kinematics_solver(link_lengths);
 
-    std::cout << "1. 正向运动学示例" << std::endl;
-    std::cout << "------------------" << std::endl;
+    LOG_INFO << "1. 正向运动学示例";
+    LOG_INFO << "------------------"
 
     // 设置关节角度（弧度）
     Eigen::VectorXd joint_angles(6);

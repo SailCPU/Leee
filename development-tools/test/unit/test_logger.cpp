@@ -6,7 +6,7 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include <doctest/doctest.h>
 
-#include <logger.h>
+#include <capability-foundations/leee/logger.h>
 #include <filesystem>
 #include <thread>
 #include <chrono>

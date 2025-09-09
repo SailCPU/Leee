@@ -7,7 +7,7 @@
 #include <doctest/doctest.h>
 
 #include <leee/bytearray.h>
-#include <logger.h>
+#include <capability-foundations/leee/logger.h>
 #include <chrono>
 #include <vector>
 #include <string>
