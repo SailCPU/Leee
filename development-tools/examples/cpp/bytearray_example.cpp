@@ -3,7 +3,7 @@
 // 演示如何使用 Leee 项目的字节数组工具模块
 //
 
-#include <bytearray.h>
+#include <leee/bytearray.h>
 #include <logger.h>
 #include <iostream>
 #include <vector>

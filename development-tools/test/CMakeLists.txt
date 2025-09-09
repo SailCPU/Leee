@@ -8,17 +8,23 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Include directories
 include_directories(
-    ${CMAKE_SOURCE_DIR}/../include
-    ${CMAKE_SOURCE_DIR}/../capability-foundations
+    ${CMAKE_SOURCE_DIR}/include
+    ${CMAKE_SOURCE_DIR}/capability-foundations
 )
 
 # Test executables
 add_executable(test_bytearray test_bytearray.cpp)
+target_link_libraries(test_bytearray PRIVATE doctest)
 add_executable(test_logger test_logger.cpp)
+target_link_libraries(test_logger PRIVATE doctest)
 add_executable(test_performance test_performance.cpp)
+target_link_libraries(test_performance PRIVATE doctest)
 add_executable(test_integration test_integration.cpp)
+target_link_libraries(test_integration PRIVATE doctest)
 add_executable(test_edge_cases test_edge_cases.cpp)
+target_link_libraries(test_edge_cases PRIVATE doctest)
 add_executable(test_report_generator test_report_generator.cpp)
+target_link_libraries(test_report_generator PRIVATE doctest)
 
 # Compiler flags for all test executables
 if(MSVC)

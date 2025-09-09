@@ -81,8 +81,9 @@ ask_user_preferences() {
     echo "3) 🔬 机器人算法研究"
     echo "4) 📚 教育与培训"
     echo "5) ⚡ 快速体验（推荐新手）"
+    echo "6) 📦 探索应用案例"
 
-    read -p "请选择 (1-5) [默认: 5]: " scenario_choice
+    read -p "请选择 (1-6) [默认: 5]: " scenario_choice
     scenario_choice=${scenario_choice:-5}
 
     # 根据选择设置构建选项
@@ -114,6 +115,12 @@ ask_user_preferences() {
             BUILD_MOTION_CONTROL=ON
             BUILD_HUMAN_INTERFACE=ON
             BUILD_SYSTEM_MANAGEMENT=ON
+            ;;
+        6) # 探索应用案例
+            BUILD_MOTION_CONTROL=ON
+            BUILD_HUMAN_INTERFACE=ON
+            BUILD_SYSTEM_MANAGEMENT=ON
+            EXPLORE_APPLICATIONS=true
             ;;
     esac
 
@@ -227,6 +234,52 @@ start_web_interface() {
     fi
 }
 
+# 展示应用案例
+show_applications() {
+    if [ "$EXPLORE_APPLICATIONS" = true ]; then
+        echo
+        log_success "📦 可用的应用案例"
+        echo
+        echo "═══════════════════════════════════════════════════════════════"
+        echo "工业机器人焊接应用:"
+        echo "   cd applications/industrial-robot"
+        echo "   cat README.md"
+        echo
+        echo "服务机器人应用:"
+        echo "   cd applications/service-robot"
+        echo "   cat README.md"
+        echo
+        echo "协作机器人应用:"
+        echo "   cd applications/collaborative-robot"
+        echo "   cat README.md"
+        echo
+        echo "自动化生产线应用:"
+        echo "   cd applications/automation-line"
+        echo "   cat README.md"
+        echo "═══════════════════════════════════════════════════════════════"
+        echo
+    fi
+}
+
+# 显示工作空间模板
+show_workspace_templates() {
+    if [ "$EXPLORE_APPLICATIONS" = true ]; then
+        echo
+        log_success "🛠️ 开发工作空间模板"
+        echo
+        echo "═══════════════════════════════════════════════════════════════"
+        echo "基础机器人应用模板:"
+        echo "   cp -r workspace/templates/basic-robot-app my-app"
+        echo "   cd my-app && cat README.md"
+        echo
+        echo "高级机器人应用模板:"
+        echo "   cp -r workspace/templates/advanced-robot-app my-advanced-app"
+        echo "   cd my-advanced-app && cat README.md"
+        echo "═══════════════════════════════════════════════════════════════"
+        echo
+    fi
+}
+
 # 显示使用指南
 show_usage_guide() {
     echo
@@ -257,6 +310,9 @@ show_usage_guide() {
     echo "   cd development-tools/test"
     echo "   ./run-tests.sh motion-control"
     echo
+    # 展示应用案例和工作空间
+    show_applications
+    show_workspace_templates
     echo "═══════════════════════════════════════════════════════════════"
     echo
     log_info "💡 提示:"

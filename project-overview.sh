@@ -82,6 +82,42 @@ check_project_status() {
     echo
     log_info "可用功能模块: $available_modules/${#modules[@]}"
 
+    # 检查应用案例
+    echo
+    log_info "应用案例状态:"
+    local applications=("industrial-robot" "service-robot" "collaborative-robot" "automation-line")
+    local available_apps=0
+
+    for app in "${applications[@]}"; do
+        if [ -d "applications/$app" ]; then
+            echo -e "  ${GREEN}✓${NC} $app"
+            ((available_apps++))
+        else
+            echo -e "  ${RED}✗${NC} $app"
+        fi
+    done
+
+    echo
+    log_info "可用应用案例: $available_apps/${#applications[@]}"
+
+    # 检查工作空间模板
+    echo
+    log_info "工作空间模板状态:"
+    local templates=("basic-robot-app" "advanced-robot-app" "industrial-app")
+    local available_templates=0
+
+    for template in "${templates[@]}"; do
+        if [ -d "workspace/templates/$template" ]; then
+            echo -e "  ${GREEN}✓${NC} $template"
+            ((available_templates++))
+        else
+            echo -e "  ${RED}✗${NC} $template"
+        fi
+    done
+
+    echo
+    log_info "可用工作空间模板: $available_templates/${#templates[@]}"
+
     # 检查脚本
     echo
     log_info "工具脚本状态:"
@@ -268,8 +304,10 @@ main() {
     echo "💡 接下来您可以："
     echo "   1) 运行 ./install.sh 开始安装"
     echo "   2) 运行 ./demo.sh 体验功能"
-    echo "   3) 阅读 README.md 了解详情"
-    echo "   4) 查看 GETTING_STARTED.md 快速上手"
+    echo "   3) 探索 ./applications/ 应用案例"
+    echo "   4) 查看 ./workspace/templates/ 开发模板"
+    echo "   5) 阅读 README.md 了解详情"
+    echo "   6) 查看 GETTING_STARTED.md 快速上手"
     echo
     read -p "需要我帮您执行某个操作吗? (y/N): " choice
     if [[ $choice =~ ^[Yy]$ ]]; then
@@ -277,8 +315,10 @@ main() {
         echo "1) 一键安装: ./install.sh"
         echo "2) 功能演示: ./demo.sh"
         echo "3) 构建项目: mkdir build && cd build && cmake .. && make"
+        echo "4) 查看应用案例: ls -la applications/"
+        echo "5) 查看工作空间模板: ls -la workspace/templates/"
         echo
-        read -p "请选择 (1-3): " action
+        read -p "请选择 (1-5): " action
         case $action in
             1) ./install.sh ;;
             2) ./demo.sh ;;
@@ -289,6 +329,8 @@ main() {
                 make -j4
                 cd ..
                 ;;
+            4) echo "应用案例:" && ls -la applications/ ;;
+            5) echo "工作空间模板:" && ls -la workspace/templates/ ;;
         esac
     fi
 }

@@ -233,6 +233,89 @@ parse_args() {
     esac
 }
 
+# 演示应用案例
+demo_applications() {
+    echo
+    log_info "📦 应用案例演示..."
+    echo
+
+    if [ -d "applications" ]; then
+        echo "可用的应用案例:"
+        echo
+
+        # 检查各个应用案例
+        if [ -d "applications/industrial-robot" ]; then
+            echo "🤖 工业机器人焊接应用"
+            echo "   位置: applications/industrial-robot/"
+            echo "   运行: cd applications/industrial-robot && cat README.md"
+            echo
+        fi
+
+        if [ -d "applications/service-robot" ]; then
+            echo "🏨 服务机器人应用"
+            echo "   位置: applications/service-robot/"
+            echo "   运行: cd applications/service-robot && cat README.md"
+            echo
+        fi
+
+        if [ -d "applications/collaborative-robot" ]; then
+            echo "🤝 协作机器人应用"
+            echo "   位置: applications/collaborative-robot/"
+            echo "   运行: cd applications/collaborative-robot && cat README.md"
+            echo
+        fi
+
+        if [ -d "applications/automation-line" ]; then
+            echo "🏭 自动化生产线应用"
+            echo "   位置: applications/automation-line/"
+            echo "   运行: cd applications/automation-line && cat README.md"
+            echo
+        fi
+
+        log_success "应用案例展示完成"
+    else
+        log_warn "未找到应用案例目录"
+    fi
+}
+
+# 演示工作空间模板
+demo_workspace_templates() {
+    echo
+    log_info "🛠️ 工作空间模板演示..."
+    echo
+
+    if [ -d "workspace/templates" ]; then
+        echo "可用的开发模板:"
+        echo
+
+        # 检查各个模板
+        if [ -d "workspace/templates/basic-robot-app" ]; then
+            echo "📚 基础机器人应用模板"
+            echo "   位置: workspace/templates/basic-robot-app/"
+            echo "   使用: cp -r workspace/templates/basic-robot-app my-app"
+            echo
+        fi
+
+        if [ -d "workspace/templates/advanced-robot-app" ]; then
+            echo "🚀 高级机器人应用模板"
+            echo "   位置: workspace/templates/advanced-robot-app/"
+            echo "   使用: cp -r workspace/templates/advanced-robot-app my-advanced-app"
+            echo
+        fi
+
+        if [ -d "workspace/templates/industrial-app" ]; then
+            echo "🏭 工业应用模板"
+            echo "   位置: workspace/templates/industrial-app/"
+            echo "   使用: cp -r workspace/templates/industrial-app my-industrial-app"
+            echo
+        fi
+
+        log_success "工作空间模板展示完成"
+    else
+        log_warn "未找到工作空间模板目录"
+    fi
+}
+
 # 显示菜单
 show_menu() {
     echo
@@ -247,11 +330,13 @@ show_menu() {
     echo "3) 🎯 任务规划演示"
     echo "4) ⚙️ 系统管理演示"
     echo "5) 🛠️ 开发工具演示"
-    echo "6) 🎪 完整功能演示"
-    echo "7) 📊 功能对比说明"
-    echo "8) ❓ 帮助信息"
+    echo "6) 📦 应用案例演示"
+    echo "7) 🏗️ 工作空间模板演示"
+    echo "8) 🎪 完整功能演示"
+    echo "9) 📊 功能对比说明"
+    echo "10) ❓ 帮助信息"
     echo
-    read -p "请选择 (1-8): " choice
+    read -p "请选择 (1-10): " choice
 
     case $choice in
         1) demo_motion_control ;;
@@ -259,9 +344,11 @@ show_menu() {
         3) demo_task_planning ;;
         4) demo_system_management ;;
         5) demo_development_tools ;;
-        6) run_full_demo ;;
-        7) show_feature_comparison ;;
-        8) show_help ;;
+        6) demo_applications ;;
+        7) demo_workspace_templates ;;
+        8) run_full_demo ;;
+        9) show_feature_comparison ;;
+        10) show_help ;;
         *) log_warn "无效选择，请重新选择" ;;
     esac
 }

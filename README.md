@@ -25,6 +25,58 @@ Leee是专为**智能制造和机器人应用**打造的控制系统平台，专
 cat GETTING_STARTED.md
 ```
 
+## 📦 应用案例展示
+
+Leee平台提供多个典型的应用案例，帮助您快速了解平台功能：
+
+### 🤖 工业机器人焊接应用
+```bash
+cd applications/industrial-robot
+cat README.md  # 查看详细说明
+```
+
+### 🏨 服务机器人应用
+```bash
+cd applications/service-robot
+cat README.md  # 查看详细说明
+```
+
+### 🤝 协作机器人应用
+```bash
+cd applications/collaborative-robot
+cat README.md  # 查看详细说明
+```
+
+### 🏭 自动化生产线应用
+```bash
+cd applications/automation-line
+cat README.md  # 查看详细说明
+```
+
+## 🛠️ 开发工作空间
+
+Leee提供标准化的开发模板，让您快速创建自己的机器人应用：
+
+### 📚 基础机器人应用模板
+```bash
+# 复制模板创建新项目
+cp -r workspace/templates/basic-robot-app my-robot-app
+cd my-robot-app
+
+# 查看模板说明
+cat README.md
+```
+
+### 🚀 高级机器人应用模板
+```bash
+# 使用高级模板
+cp -r workspace/templates/advanced-robot-app my-advanced-app
+cd my-advanced-app
+
+# 查看高级功能
+cat README.md
+```
+
 ## 🤖 AI驱动开发理念
 
 Leee项目开创性地采用**AI Agent主导开发**的新模式：
@@ -242,6 +294,33 @@ make run-examples         # 运行所有示例
 - 📈 性能分析和优化工具
 - 🔬 研究级别的仿真支持
 
+### 场景4: 我想基于应用案例开发
+
+**如果您想基于现有案例快速开发：**
+
+```bash
+# 选择安装时探索应用案例
+./install.sh
+# 在安装过程中选择"6) 📦 探索应用案例"
+
+# 或者直接查看应用案例
+ls applications/  # 查看所有可用案例
+
+# 复制应用案例作为起点
+cp -r applications/industrial-robot my-welding-app
+cd my-welding-app
+
+# 基于模板创建新应用
+cp -r ../workspace/templates/basic-robot-app my-basic-app
+cd my-basic-app
+```
+
+**您将获得：**
+- 📦 完整的应用案例参考
+- 🛠️ 标准化的开发模板
+- 🚀 快速启动的开发环境
+- 📚 详细的使用文档和示例
+
 ## 📖 详细使用指南
 
 ### 第一步：选择您的应用场景
@@ -432,6 +511,8 @@ target_link_libraries(your_target PRIVATE leee)
 - [设计规范](design-specs/) - 架构设计和编码规范
 - [示例代码](examples/) - 实际使用示例
 - [测试报告](test/) - 完整的测试套件
+- [应用案例](applications/) - 典型应用案例和实现
+- [开发模板](workspace/templates/) - 标准化开发模板
 
 ## 📁 项目结构
 
@@ -475,6 +556,16 @@ Leee/
 │   ├── examples/          # 示例代码
 │   └── scripts/           # 自动化脚本
 ├── capability-foundations/ # 能力基础技术库
+├── applications/          # 典型应用案例
+│   ├── industrial-robot/  # 工业机器人焊接应用
+│   ├── service-robot/     # 服务机器人应用
+│   ├── collaborative-robot/ # 协作机器人应用
+│   └── automation-line/   # 自动化生产线应用
+├── workspace/             # 开发工作空间
+│   └── templates/         # 开发模板
+│       ├── basic-robot-app/    # 基础机器人应用模板
+│       ├── advanced-robot-app/ # 高级机器人应用模板
+│       └── industrial-app/     # 工业应用模板
 ├── build/                 # 构建输出目录
 ├── cmake-build-debug/     # 调试构建目录
 ├── design-specs/          # 设计规范文档

@@ -4,9 +4,9 @@
 //
 
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
-#include <doctest/doctest.h>
+#include "doctest.h"
 
-#include <bytearray.h>
+#include <leee/bytearray.h>
 #include <logger.h>
 #include <filesystem>
 #include <fstream>
@@ -128,7 +128,6 @@ public:
         report << "        <h1>Leee 单元测试报告</h1>\n";
 
         // 计算总体统计
-        int total_suites = suite_results_.size();
         int total_tests = 0;
         int total_passed = 0;
         int total_failed = 0;
