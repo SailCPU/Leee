@@ -1,0 +1,17 @@
+{
+  "name": "Eigen",
+  "version": "3.4.0",
+  "homepage": "https://eigen.tuxfamily.org/",
+  "repository": "https://gitlab.com/libeigen/eigen",
+  "license": "MPL-2.0",
+  "license_url": "https://www.mozilla.org/en-US/MPL/2.0/",
+  "description": "Eigen is a C++ template library for linear algebra: matrices, vectors, numerical solvers, and related algorithms",
+  "platforms": ["Windows", "Linux", "macOS", "iOS", "Android"],
+  "dependencies": [],
+  "system_dependencies": [],
+  "cpp_standard": "C++11",
+  "maintainer": "Sail <sailcpu@gmail.com>",
+  "last_updated": "2024-01-15",
+  "upstream_commit": "3.4.0",
+  "notes": "High-performance linear algebra library with expression templates. Supports dense and sparse matrices."
+}

@@ -1,0 +1,17 @@
+{
+  "name": "fmt",
+  "version": "10.1.1",
+  "homepage": "https://fmt.dev/",
+  "repository": "https://github.com/fmtlib/fmt",
+  "license": "MIT",
+  "license_url": "https://github.com/fmtlib/fmt/blob/master/LICENSE.rst",
+  "description": "A modern formatting library - Fast, safe and extensible string formatting for C++",
+  "platforms": ["Windows", "Linux", "macOS", "iOS", "Android"],
+  "dependencies": [],
+  "system_dependencies": [],
+  "cpp_standard": "C++11",
+  "maintainer": "Sail <sailcpu@gmail.com>",
+  "last_updated": "2024-01-15",
+  "upstream_commit": "10.1.1",
+  "notes": "Provides type-safe and extensible formatting, superior to printf and iostreams."
+}

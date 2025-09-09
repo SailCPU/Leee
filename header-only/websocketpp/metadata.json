@@ -1,0 +1,17 @@
+{
+  "name": "WebSocket++",
+  "version": "0.8.2",
+  "homepage": "https://www.zaphoyd.com/websocketpp/",
+  "repository": "https://github.com/zaphoyd/websocketpp",
+  "license": "BSD",
+  "license_url": "https://github.com/zaphoyd/websocketpp/blob/master/COPYING",
+  "description": "C++ websocket client/server library",
+  "platforms": ["Windows", "Linux", "macOS"],
+  "dependencies": ["Asio"],
+  "system_dependencies": ["OpenSSL (for TLS)", "Boost (optional)"],
+  "cpp_standard": "C++11",
+  "maintainer": "Sail <sailcpu@gmail.com>",
+  "last_updated": "2024-01-15",
+  "upstream_commit": "0.8.2",
+  "notes": "WebSocket protocol implementation built on Asio. Supports both client and server modes."
+}

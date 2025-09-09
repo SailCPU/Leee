@@ -1,0 +1,17 @@
+{
+  "name": "nlohmann/json",
+  "version": "3.11.2",
+  "homepage": "https://json.nlohmann.me/",
+  "repository": "https://github.com/nlohmann/json",
+  "license": "MIT",
+  "license_url": "https://github.com/nlohmann/json/blob/develop/LICENSE.MIT",
+  "description": "JSON for Modern C++ - A simple, header-only JSON library",
+  "platforms": ["Windows", "Linux", "macOS", "iOS", "Android"],
+  "dependencies": [],
+  "system_dependencies": [],
+  "cpp_standard": "C++11",
+  "maintainer": "Sail <sailcpu@gmail.com>",
+  "last_updated": "2024-01-15",
+  "upstream_commit": "v3.11.2",
+  "notes": "Single header file library for JSON parsing and serialization with modern C++ interface."
+}

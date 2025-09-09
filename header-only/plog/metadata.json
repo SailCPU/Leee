@@ -1,0 +1,17 @@
+{
+  "name": "plog",
+  "version": "1.1.9",
+  "homepage": "https://github.com/SergiusTheBest/plog",
+  "repository": "https://github.com/SergiusTheBest/plog",
+  "license": "MIT",
+  "license_url": "https://github.com/SergiusTheBest/plog/blob/master/LICENSE",
+  "description": "Portable, simple and extensible C++ logging library",
+  "platforms": ["Windows", "Linux", "macOS", "Android"],
+  "dependencies": [],
+  "system_dependencies": [],
+  "cpp_standard": "C++98",
+  "maintainer": "Sail <sailcpu@gmail.com>",
+  "last_updated": "2024-01-15",
+  "upstream_commit": "1.1.9",
+  "notes": "Lightweight, header-only logging library with multiple appenders and formatters."
+}

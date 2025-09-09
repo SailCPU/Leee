@@ -1,0 +1,17 @@
+{
+  "name": "Asio",
+  "version": "1.28.0",
+  "homepage": "https://think-async.com/Asio/",
+  "repository": "https://github.com/chriskohlhoff/asio",
+  "license": "BSL-1.0",
+  "license_url": "https://www.boost.org/LICENSE_1_0.txt",
+  "description": "Cross-platform C++ library for network and low-level I/O programming",
+  "platforms": ["Windows", "Linux", "macOS", "iOS", "Android"],
+  "dependencies": [],
+  "system_dependencies": ["Threads (POSIX/Windows)"],
+  "cpp_standard": "C++11",
+  "maintainer": "Sail <sailcpu@gmail.com>",
+  "last_updated": "2024-01-15",
+  "upstream_commit": "latest-stable",
+  "notes": "Asio is a header-only library that provides a consistent asynchronous model using a modern C++ approach."
+}

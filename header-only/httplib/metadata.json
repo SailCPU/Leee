@@ -1,0 +1,17 @@
+{
+  "name": "cpp-httplib",
+  "version": "0.14.1",
+  "homepage": "https://github.com/yhirose/cpp-httplib",
+  "repository": "https://github.com/yhirose/cpp-httplib",
+  "license": "MIT",
+  "license_url": "https://github.com/yhirose/cpp-httplib/blob/master/LICENSE",
+  "description": "A C++ header-only HTTP/HTTPS server and client library",
+  "platforms": ["Windows", "Linux", "macOS", "iOS", "Android"],
+  "dependencies": [],
+  "system_dependencies": ["OpenSSL (optional for HTTPS)"],
+  "cpp_standard": "C++11",
+  "maintainer": "Sail <sailcpu@gmail.com>",
+  "last_updated": "2024-01-15",
+  "upstream_commit": "v0.14.1",
+  "notes": "Simple and easy-to-use HTTP client/server library supporting both HTTP and HTTPS."
+}

@@ -1,0 +1,17 @@
+{
+  "name": "doctest",
+  "version": "2.4.11",
+  "homepage": "https://github.com/doctest/doctest",
+  "repository": "https://github.com/doctest/doctest",
+  "license": "MIT",
+  "license_url": "https://github.com/doctest/doctest/blob/master/LICENSE.txt",
+  "description": "The fastest feature-rich C++11/14/17/20 single-header testing framework",
+  "platforms": ["Windows", "Linux", "macOS", "iOS", "Android"],
+  "dependencies": [],
+  "system_dependencies": [],
+  "cpp_standard": "C++11",
+  "maintainer": "Sail <sailcpu@gmail.com>",
+  "last_updated": "2024-01-15",
+  "upstream_commit": "v2.4.11",
+  "notes": "Fast, feature-rich testing framework with minimal overhead and comprehensive assertions."
+}
